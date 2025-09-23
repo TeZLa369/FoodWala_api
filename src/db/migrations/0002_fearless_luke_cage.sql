@@ -1,0 +1,1 @@
+ALTER TABLE "favorites" ALTER COLUMN "recipe_Id" SET DATA TYPE integer;

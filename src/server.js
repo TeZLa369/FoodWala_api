@@ -3,9 +3,13 @@ import { ENV } from "./config/env.js";
 import { db } from "./config/db.js";
 import { favTables } from "./db/schema.js";
 import { and, eq } from "drizzle-orm";
+import job from "./config/cron.js";
+
 
 const app = express()
 const PORT = ENV.PORT || 5001
+
+if (ENV.NODE_ENV === "production") { job.start() };
 
 app.use(express.json()); //^used this line so that the line 16th will work, otherwise it will be undefined
 
@@ -43,7 +47,7 @@ app.get("/api/favorites/:user_Id", async (req, res) => {
 
     } catch (error) {
         console.log("Error fetching a favorite: ", error);
-        res.status(500).json({ error: "Something went wrong"});
+        res.status(500).json({ error: "Something went wrong" });
     }
 })
 
